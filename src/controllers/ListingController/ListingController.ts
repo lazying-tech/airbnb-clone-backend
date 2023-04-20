@@ -3,6 +3,10 @@ import { ListingService } from "../../services/ListingService/ListingService";
 
 export const ListingController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
-    return res.status(200).json(await ListingService.create(req.body));
+    try {
+      return res.status(200).json(await ListingService.create(req.body));
+    } catch (err) {
+      res.status(500).json("Something went wrong");
+    }
   },
 };

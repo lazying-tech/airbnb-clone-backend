@@ -19,27 +19,27 @@ export const ListingService = {
       } = createListing;
 
       if (!user) {
-        return "Login first !!!!";
+        return Error("Login First");
       }
 
       const listing = await prisma.listing.create({
         data: {
           title,
           description,
+          imageSrc,
+          category,
           bathroomCount,
           roomCount,
           guestCount,
           locationValue: location.value,
-          price: price,
-          category,
-          imageSrc,
+          price: parseInt(price, 10),
           userId: user.id,
         },
       });
 
       return listing;
     } catch (err) {
-      return "err";
+      throw err;
     }
   },
 };
