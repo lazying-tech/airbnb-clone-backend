@@ -10,7 +10,7 @@ app.use(
 );
 const corsoption = function (req: Request, res: Response, next: NextFunction) {
   // CORS headers
-  res.header("Access-Control-Allow-Origin", "YOUR_URL"); // restrict it to the required domain
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000/"); // restrict it to the required domain
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
   // Set custom headers for CORS
   res.header(
