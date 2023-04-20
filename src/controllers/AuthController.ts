@@ -4,6 +4,6 @@ import { CreateUserDto } from "../dto/create-user";
 
 export const AuthController = {
   register: async (req: Request, res: Response, next: NextFunction) => {
-    return res.json(await AuthService.register(req.body));
+    return res.status(200).json(await AuthService.register(req.body));
   },
 };
