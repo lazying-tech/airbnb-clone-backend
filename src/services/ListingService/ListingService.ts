@@ -39,7 +39,7 @@ export const ListingService = {
 
       return listing;
     } catch (err) {
-      return err;
+      return "err";
     }
   },
 };
