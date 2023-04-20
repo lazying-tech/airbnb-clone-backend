@@ -4,9 +4,7 @@ import cors from "cors";
 require("dotenv").config();
 const app = express();
 app.use(
-  cors({
-    origin: "*",
-  })
+  cors({ credentials: true, origin: "*", allowedHeaders: "localhost:3000" })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
