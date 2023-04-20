@@ -1,4 +1,4 @@
-import { CreateUserDto } from "../dto/create-user";
+import { CreateUserDto } from "../../dto/UserDto/create-user";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
