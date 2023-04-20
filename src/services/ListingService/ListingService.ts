@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 export const ListingService = {
-  create: async (createListing: CreatListingDto) => {
+  create: async (createListing: any) => {
     try {
       const {
         category,
