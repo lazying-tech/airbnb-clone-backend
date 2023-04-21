@@ -4,5 +4,5 @@ import { ListingController } from "../../controllers/ListingController/ListingCo
 const listingRoute = express.Router();
 
 listingRoute.post("/", ListingController.create);
-listingRoute.get("/", ListingController.getListings);
+
 export default listingRoute;
