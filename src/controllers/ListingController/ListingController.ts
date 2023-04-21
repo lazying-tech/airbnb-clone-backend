@@ -9,4 +9,11 @@ export const ListingController = {
       res.status(500).json("Something went wrong");
     }
   },
+  getListings: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      return res.status(200).json(await ListingService.getListings());
+    } catch (err) {
+      res.status(500).json("Something went wrong");
+    }
+  },
 };

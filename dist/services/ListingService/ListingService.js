@@ -39,5 +39,16 @@ exports.ListingService = {
             throw err;
         }
     }),
+    getListings: () => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const listings = yield prisma.listing.findMany({
+                orderBy: { createAt: "desc" },
+            });
+            return listings;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
 };
 //# sourceMappingURL=ListingService.js.map

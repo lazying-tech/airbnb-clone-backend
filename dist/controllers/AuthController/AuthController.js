@@ -13,7 +13,12 @@ exports.AuthController = void 0;
 const AuthService_1 = require("../../services/AuthService/AuthService");
 exports.AuthController = {
     register: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        return res.status(200).json(yield AuthService_1.AuthService.register(req.body));
+        try {
+            return res.status(200).json(yield AuthService_1.AuthService.register(req.body));
+        }
+        catch (err) {
+            res.status(500).json("Something went wrong");
+        }
     }),
 };
 //# sourceMappingURL=AuthController.js.map

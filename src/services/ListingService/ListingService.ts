@@ -38,7 +38,18 @@ export const ListingService = {
       });
 
       return listing;
-    } catch (err) {
+    } catch (err: any) {
+      throw err;
+    }
+  },
+
+  getListings: async () => {
+    try {
+      const listings = await prisma.listing.findMany({
+        orderBy: { createAt: "desc" },
+      });
+      return listings;
+    } catch (err: any) {
       throw err;
     }
   },

@@ -20,5 +20,13 @@ exports.ListingController = {
             res.status(500).json("Something went wrong");
         }
     }),
+    getListings: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            return res.status(200).json(yield ListingService_1.ListingService.getListings());
+        }
+        catch (err) {
+            res.status(500).json("Something went wrong");
+        }
+    }),
 };
 //# sourceMappingURL=ListingController.js.map
