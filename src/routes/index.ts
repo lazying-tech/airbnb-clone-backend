@@ -5,4 +5,5 @@ const router = express.Router();
 
 router.use("/auth", AuthRoute);
 router.use("/listing", listingRoute);
+router.use("/favorites", listingRoute);
 export default router;

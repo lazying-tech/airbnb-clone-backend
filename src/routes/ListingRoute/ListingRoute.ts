@@ -4,5 +4,6 @@ import { ListingController } from "../../controllers/ListingController/ListingCo
 const listingRoute = express.Router();
 
 listingRoute.post("/", ListingController.create);
-
+listingRoute.post("/:listingId", ListingController.addFavorite);
+listingRoute.patch("/:listingId", ListingController.deleteFavorite);
 export default listingRoute;

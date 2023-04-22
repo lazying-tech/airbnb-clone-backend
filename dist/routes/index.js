@@ -9,5 +9,6 @@ const ListingRoute_1 = __importDefault(require("./ListingRoute/ListingRoute"));
 const router = express_1.default.Router();
 router.use("/auth", AuthRoute_1.default);
 router.use("/listing", ListingRoute_1.default);
+router.use("/favorites", ListingRoute_1.default);
 exports.default = router;
 //# sourceMappingURL=index.js.map
