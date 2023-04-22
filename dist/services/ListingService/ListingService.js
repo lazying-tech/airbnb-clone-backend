@@ -17,7 +17,7 @@ exports.ListingService = {
         try {
             const { category, description, bathroomCount, roomCount, guestCount, user, location, imageSrc, price, title, } = createListing;
             if (!user) {
-                return Error("Login First");
+                throw new Error("Login First");
             }
             const listing = yield prisma.listing.create({
                 data: {
@@ -34,6 +34,49 @@ exports.ListingService = {
                 },
             });
             return listing;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
+    addFavorite: (listingId, data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const currentUser = data.user;
+            if (!currentUser) {
+                throw new Error("Login First");
+            }
+            if (!listingId || typeof listingId !== "string") {
+                throw new Error("Invalid ID");
+            }
+            let favoriteIds = [...(currentUser.favoriteIds || [])];
+            favoriteIds.push(listingId);
+            console.log(favoriteIds);
+            const user = yield prisma.user.update({
+                where: { id: currentUser.id },
+                data: { favoriteIds },
+            });
+            return user;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
+    deleteFavorite: (listingId, data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const currentUser = data.user;
+            if (!currentUser) {
+                throw new Error("Login First");
+            }
+            if (!listingId || typeof listingId !== "string") {
+                throw new Error("Invalid ID");
+            }
+            let favoriteIds = [...(currentUser.favoriteIds || [])];
+            favoriteIds = favoriteIds.filter((id) => id !== listingId);
+            const user = yield prisma.user.update({
+                where: { id: currentUser.id },
+                data: { favoriteIds },
+            });
+            return user;
         }
         catch (err) {
             throw err;

@@ -18,7 +18,7 @@ export const ListingController = {
         .status(200)
         .json(await ListingService.addFavorite(listingId, req.body));
     } catch (err) {
-      res.status(500).json("Something went wrong");
+      res.status(500).json("Error");
     }
   },
   deleteFavorite: async (req: Request, res: Response, next: NextFunction) => {

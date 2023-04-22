@@ -46,6 +46,7 @@ export const ListingService = {
   addFavorite: async (listingId: string, data: any) => {
     try {
       const currentUser = data.user;
+
       if (!currentUser) {
         throw new Error("Login First");
       }
@@ -55,8 +56,8 @@ export const ListingService = {
 
       let favoriteIds = [...(currentUser.favoriteIds || [])];
 
-      favoriteIds = favoriteIds.push(listingId);
-
+      favoriteIds.push(listingId);
+      console.log(favoriteIds);
       const user = await prisma.user.update({
         where: { id: currentUser.id },
         data: { favoriteIds },

@@ -8,5 +8,6 @@ const ListingController_1 = require("../../controllers/ListingController/Listing
 const listingRoute = express_1.default.Router();
 listingRoute.post("/", ListingController_1.ListingController.create);
 listingRoute.post("/:listingId", ListingController_1.ListingController.addFavorite);
+listingRoute.patch("/:listingId", ListingController_1.ListingController.deleteFavorite);
 exports.default = listingRoute;
 //# sourceMappingURL=ListingRoute.js.map
