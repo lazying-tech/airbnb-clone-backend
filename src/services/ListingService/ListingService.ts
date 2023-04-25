@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 export const ListingService = {
-  create: async (createListing: any) => {
+  create: async (createListing: CreateListingDto) => {
     try {
       const {
         category,
