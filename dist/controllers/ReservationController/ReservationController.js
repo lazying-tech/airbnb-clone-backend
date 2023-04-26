@@ -20,5 +20,17 @@ exports.ReservationController = {
             res.status(500).json("Something went wrong");
         }
     }),
+    delete: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const params = req.params;
+        const { reservationId } = params;
+        try {
+            return res
+                .status(200)
+                .json(yield ReservationService_1.ReservationService.delete(reservationId, req.body));
+        }
+        catch (err) {
+            res.status(500).json("Something went wrong");
+        }
+    }),
 };
 //# sourceMappingURL=ReservationController.js.map

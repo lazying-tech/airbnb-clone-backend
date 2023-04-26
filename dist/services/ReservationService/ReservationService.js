@@ -45,5 +45,31 @@ exports.ReservationService = {
             throw err;
         }
     }),
+    delete: (reservationId, data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const currentUser = data.user;
+            if (!currentUser) {
+                throw new Error("Login First");
+            }
+            if (!reservationId || typeof reservationId !== "string") {
+                throw new Error("Invalid ID");
+            }
+            console.log(currentUser, reservationId);
+            const reservation = yield prisma.reservation.deleteMany({
+                where: {
+                    id: reservationId,
+                    OR: [
+                        // ensure who can delete reservation is the user created reservation OR the user created listing
+                        { userId: currentUser.id },
+                        { listing: { userId: currentUser.id } },
+                    ],
+                },
+            });
+            return reservation;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
 };
 //# sourceMappingURL=ReservationService.js.map
