@@ -54,7 +54,6 @@ exports.ReservationService = {
             if (!reservationId || typeof reservationId !== "string") {
                 throw new Error("Invalid ID");
             }
-            console.log(currentUser, reservationId);
             const reservation = yield prisma.reservation.deleteMany({
                 where: {
                     id: reservationId,
