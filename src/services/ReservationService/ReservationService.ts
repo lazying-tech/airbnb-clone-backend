@@ -48,14 +48,14 @@ export const ReservationService = {
       if (!reservationId || typeof reservationId !== "string") {
         throw new Error("Invalid ID");
       }
-
+      console.log(currentUser);
       const reservation = await prisma.reservation.deleteMany({
         where: {
           id: reservationId,
           OR: [
             // ensure who can delete reservation is the user created reservation OR the user created listing
             { userId: currentUser.id },
-            { listing: { userId: currentUser } },
+            { listing: { userId: currentUser.id } },
           ],
         },
       });
