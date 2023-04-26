@@ -39,4 +39,30 @@ export const ReservationService = {
       throw err;
     }
   },
+  delete: async (reservationId: string, data: any) => {
+    try {
+      const currentUser = data.user;
+      if (!currentUser) {
+        throw new Error("Login First");
+      }
+      if (!reservationId || typeof reservationId !== "string") {
+        throw new Error("Invalid ID");
+      }
+
+      const reservation = await prisma.reservation.deleteMany({
+        where: {
+          id: reservationId,
+          OR: [
+            // ensure who can delete reservation is the user created reservation OR the user created listing
+            { userId: currentUser.id },
+            { listing: { userId: currentUser } },
+          ],
+        },
+      });
+
+      return reservation;
+    } catch (err) {
+      throw err;
+    }
+  },
 };

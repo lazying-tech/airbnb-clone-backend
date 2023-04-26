@@ -69,6 +69,6 @@ model Reservation {
   totalPrice Int
   createAt   DateTime @default(now())
 
-  User    User?    @relation(fields: [userId], references: [id])
-  Listing Listing? @relation(fields: [listingId], references: [id])
+  user    User?    @relation(fields: [userId], references: [id])
+  listing Listing? @relation(fields: [listingId], references: [id])
 }

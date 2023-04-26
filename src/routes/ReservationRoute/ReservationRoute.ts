@@ -4,5 +4,5 @@ import { ReservationController } from "../../controllers/ReservationController/R
 const reservationRoute = express.Router();
 
 reservationRoute.post("/", ReservationController.create);
-
+reservationRoute.delete("/:reservationId", ReservationController.delete);
 export default reservationRoute;
