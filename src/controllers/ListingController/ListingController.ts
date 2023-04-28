@@ -33,4 +33,16 @@ export const ListingController = {
       res.status(500).json("Something went wrong");
     }
   },
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    const { listingId } = params;
+
+    try {
+      return res
+        .status(200)
+        .json(await ListingService.delete(listingId, req.body));
+    } catch (err) {
+      res.status(500).json("Something went wrong");
+    }
+  },
 };

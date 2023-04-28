@@ -92,4 +92,23 @@ export const ListingService = {
       throw err;
     }
   },
+  delete: async (listingId: string, data: any) => {
+    try {
+      const currentUser = data.user;
+      if (!currentUser) {
+        throw new Error("Login First");
+      }
+      if (!listingId || typeof listingId !== "string") {
+        throw new Error("Invalid ID");
+      }
+
+      const listing = await prisma.listing.deleteMany({
+        where: { id: listingId, userId: currentUser.id },
+      });
+
+      return listing;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
