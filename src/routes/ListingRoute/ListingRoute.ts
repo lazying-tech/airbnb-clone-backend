@@ -6,5 +6,5 @@ const listingRoute = express.Router();
 listingRoute.post("/", ListingController.create);
 listingRoute.post("/:listingId", ListingController.addFavorite);
 listingRoute.patch("/:listingId", ListingController.deleteFavorite);
-listingRoute.patch("/:listingId", ListingController.delete);
+listingRoute.patch("/delete/:listingId", ListingController.delete);
 export default listingRoute;
