@@ -24,7 +24,7 @@ export const ListingController = {
   deleteFavorite: async (req: Request, res: Response, next: NextFunction) => {
     const params = req.params;
     const { listingId } = params;
-
+    console.log(listingId);
     try {
       return res
         .status(200)
@@ -36,7 +36,7 @@ export const ListingController = {
   delete: async (req: Request, res: Response, next: NextFunction) => {
     const params = req.params;
     const { listingId } = params;
-
+    console.log(listingId);
     try {
       return res
         .status(200)

@@ -82,5 +82,23 @@ exports.ListingService = {
             throw err;
         }
     }),
+    delete: (listingId, data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const currentUser = data.user;
+            if (!currentUser) {
+                throw new Error("Login First");
+            }
+            if (!listingId || typeof listingId !== "string") {
+                throw new Error("Invalid ID");
+            }
+            const listing = yield prisma.listing.deleteMany({
+                where: { id: listingId, userId: currentUser.id },
+            });
+            return listing;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
 };
 //# sourceMappingURL=ListingService.js.map
