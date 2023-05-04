@@ -47,7 +47,6 @@ exports.ListingController = {
     delete: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const params = req.params;
         const { listingId } = params;
-        console.log(listingId);
         try {
             return res
                 .status(200)
