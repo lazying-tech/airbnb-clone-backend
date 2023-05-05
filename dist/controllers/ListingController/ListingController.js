@@ -17,7 +17,7 @@ exports.ListingController = {
             return res.status(200).json(yield ListingService_1.ListingService.create(req.body));
         }
         catch (err) {
-            res.status(500).json("Something went wrong");
+            return res.status(500).json(err.message);
         }
     }),
     addFavorite: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,7 +29,7 @@ exports.ListingController = {
                 .json(yield ListingService_1.ListingService.addFavorite(listingId, req.body));
         }
         catch (err) {
-            res.status(500).json("Error");
+            return res.status(500).json(err.message);
         }
     }),
     deleteFavorite: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,7 +41,7 @@ exports.ListingController = {
                 .json(yield ListingService_1.ListingService.deleteFavorite(listingId, req.body));
         }
         catch (err) {
-            res.status(500).json("Something went wrong");
+            return res.status(500).json(err.message);
         }
     }),
     delete: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,7 +53,7 @@ exports.ListingController = {
                 .json(yield ListingService_1.ListingService.delete(listingId, req.body));
         }
         catch (err) {
-            res.status(500).json("Something went wrong");
+            return res.status(500).json(err.message);
         }
     }),
 };

@@ -20,4 +20,16 @@ export const CommentController = {
       return res.status(500).json(err.message);
     }
   },
+
+  delete: async (req: Request, res: Response, next: NextFunction) => {
+    const params = req.params;
+    const { commentId } = params;
+    try {
+      return res
+        .status(200)
+        .json(await CommentService.delete(commentId, req.body));
+    } catch (err: any) {
+      return res.status(500).json(err.message);
+    }
+  },
 };

@@ -17,7 +17,7 @@ exports.CommentController = {
             return res.status(200).json(yield CommentService_1.CommentService.create(req.body));
         }
         catch (err) {
-            res.status(500).json(err);
+            return res.status(500).json(err.message);
         }
     }),
     update: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,6 +27,18 @@ exports.CommentController = {
             return res
                 .status(200)
                 .json(yield CommentService_1.CommentService.update(commentId, req.body));
+        }
+        catch (err) {
+            return res.status(500).json(err.message);
+        }
+    }),
+    delete: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const params = req.params;
+        const { commentId } = params;
+        try {
+            return res
+                .status(200)
+                .json(yield CommentService_1.CommentService.delete(commentId, req.body));
         }
         catch (err) {
             return res.status(500).json(err.message);

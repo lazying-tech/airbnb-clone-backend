@@ -17,7 +17,7 @@ exports.AuthController = {
             return res.status(200).json(yield AuthService_1.AuthService.register(req.body));
         }
         catch (err) {
-            res.status(500).json("Something went wrong");
+            return res.status(500).json(err.message);
         }
     }),
 };

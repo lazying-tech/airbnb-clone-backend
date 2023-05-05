@@ -38,12 +38,12 @@ export const CommentService = {
         throw new Error("Data not enough");
       }
 
-      const userId = await prisma.comment.findUnique({
+      const User = await prisma.comment.findUnique({
         where: { id: commentId },
         select: { userId: true },
       });
 
-      if (userId?.userId !== user.id) {
+      if (User?.userId !== user.id) {
         throw new Error("You do not have permission to edit this message");
       }
 
@@ -57,6 +57,56 @@ export const CommentService = {
         select: { message: true },
       });
       return newComment;
+    } catch (err) {
+      throw err;
+    }
+  },
+  delete: async (commentId: string, data: any) => {
+    try {
+      const currentUser = data.user;
+
+      const user = await prisma.comment.findUnique({
+        where: { id: commentId },
+        select: { userId: true },
+      });
+
+      if (user?.userId !== currentUser.id) {
+        throw new Error("You do not have permission to delete this message");
+      }
+
+      const comment = await prisma.comment.findUnique({
+        where: {
+          id: commentId,
+        },
+      });
+
+      const deleteCommentWitchChildren = async (comment: any) => {
+        // find all the children have parent which is the comment we are deleting
+        try {
+          const children = await prisma.comment.findMany({
+            where: {
+              parent: {
+                id: comment.id,
+              },
+            },
+          });
+
+          for (const child of children) {
+            await deleteCommentWitchChildren(child);
+          }
+
+          const commentDelete = await prisma.comment.delete({
+            where: {
+              id: comment.id,
+            },
+          });
+          return { ...commentDelete };
+        } catch (err: any) {
+          throw err;
+        }
+      };
+      const deletedComment = await deleteCommentWitchChildren(comment);
+      return deletedComment;
     } catch (err) {
       throw err;
     }

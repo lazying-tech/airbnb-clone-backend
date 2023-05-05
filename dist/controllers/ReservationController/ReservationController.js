@@ -17,7 +17,7 @@ exports.ReservationController = {
             return res.status(200).json(yield ReservationService_1.ReservationService.create(req.body));
         }
         catch (err) {
-            return res.status(500).json(err);
+            return res.status(500).json(err.message);
         }
     }),
     delete: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,7 +29,7 @@ exports.ReservationController = {
                 .json(yield ReservationService_1.ReservationService.delete(reservationId, req.body));
         }
         catch (err) {
-            return res.status(500).json(err);
+            return res.status(500).json(err.message);
         }
     }),
 };

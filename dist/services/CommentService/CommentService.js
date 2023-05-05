@@ -42,11 +42,11 @@ exports.CommentService = {
             if (comment == "" || comment == null) {
                 throw new Error("Data not enough");
             }
-            const userId = yield prisma.comment.findUnique({
+            const User = yield prisma.comment.findUnique({
                 where: { id: commentId },
                 select: { userId: true },
             });
-            if ((userId === null || userId === void 0 ? void 0 : userId.userId) !== user.id) {
+            if ((User === null || User === void 0 ? void 0 : User.userId) !== user.id) {
                 throw new Error("You do not have permission to edit this message");
             }
             const newComment = yield prisma.comment.update({
@@ -59,6 +59,52 @@ exports.CommentService = {
                 select: { message: true },
             });
             return newComment;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
+    delete: (commentId, data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const currentUser = data.user;
+            const user = yield prisma.comment.findUnique({
+                where: { id: commentId },
+                select: { userId: true },
+            });
+            if ((user === null || user === void 0 ? void 0 : user.userId) !== currentUser.id) {
+                throw new Error("You do not have permission to delete this message");
+            }
+            const comment = yield prisma.comment.findUnique({
+                where: {
+                    id: commentId,
+                },
+            });
+            const deleteCommentWitchChildren = (comment) => __awaiter(void 0, void 0, void 0, function* () {
+                // find all the children have parent which is the comment we are deleting
+                try {
+                    const children = yield prisma.comment.findMany({
+                        where: {
+                            parent: {
+                                id: comment.id,
+                            },
+                        },
+                    });
+                    for (const child of children) {
+                        yield deleteCommentWitchChildren(child);
+                    }
+                    const commentDelete = yield prisma.comment.delete({
+                        where: {
+                            id: comment.id,
+                        },
+                    });
+                    return Object.assign(Object.assign({}, commentDelete), { commentDelete });
+                }
+                catch (err) {
+                    throw err;
+                }
+            });
+            const deletedComment = yield deleteCommentWitchChildren(comment);
+            return deletedComment;
         }
         catch (err) {
             throw err;
