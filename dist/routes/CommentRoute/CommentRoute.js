@@ -7,5 +7,6 @@ const express_1 = __importDefault(require("express"));
 const CommentController_1 = require("../../controllers/CommentController/CommentController");
 const commentRoute = express_1.default.Router();
 commentRoute.post("/", CommentController_1.CommentController.create);
+commentRoute.patch("/:commentId", CommentController_1.CommentController.update);
 exports.default = commentRoute;
 //# sourceMappingURL=CommentRoute.js.map

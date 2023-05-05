@@ -5,8 +5,8 @@ export const ListingController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       return res.status(200).json(await ListingService.create(req.body));
-    } catch (err) {
-      res.status(500).json("Something went wrong");
+    } catch (err: any) {
+      return res.status(500).json(err.message);
     }
   },
   addFavorite: async (req: Request, res: Response, next: NextFunction) => {
@@ -17,8 +17,8 @@ export const ListingController = {
       return res
         .status(200)
         .json(await ListingService.addFavorite(listingId, req.body));
-    } catch (err) {
-      res.status(500).json("Error");
+    } catch (err: any) {
+      return res.status(500).json(err.message);
     }
   },
   deleteFavorite: async (req: Request, res: Response, next: NextFunction) => {
@@ -29,8 +29,8 @@ export const ListingController = {
       return res
         .status(200)
         .json(await ListingService.deleteFavorite(listingId, req.body));
-    } catch (err) {
-      res.status(500).json("Something went wrong");
+    } catch (err: any) {
+      return res.status(500).json(err.message);
     }
   },
   delete: async (req: Request, res: Response, next: NextFunction) => {
@@ -41,8 +41,8 @@ export const ListingController = {
       return res
         .status(200)
         .json(await ListingService.delete(listingId, req.body));
-    } catch (err) {
-      res.status(500).json("Something went wrong");
+    } catch (err: any) {
+      return res.status(500).json(err.message);
     }
   },
 };

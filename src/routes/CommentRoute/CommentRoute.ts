@@ -4,5 +4,5 @@ import { CommentController } from "../../controllers/CommentController/CommentCo
 const commentRoute = express.Router();
 
 commentRoute.post("/", CommentController.create);
-
+commentRoute.patch("/:commentId", CommentController.update);
 export default commentRoute;

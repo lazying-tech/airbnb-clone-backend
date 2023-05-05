@@ -5,8 +5,8 @@ export const ReservationController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
       return res.status(200).json(await ReservationService.create(req.body));
-    } catch (err) {
-      res.status(500).json("Something went wrong");
+    } catch (err: any) {
+      return res.status(500).json(err.message);
     }
   },
   delete: async (req: Request, res: Response, next: NextFunction) => {
@@ -16,8 +16,8 @@ export const ReservationController = {
       return res
         .status(200)
         .json(await ReservationService.delete(reservationId, req.body));
-    } catch (err) {
-      res.status(500).json("Something went wrong");
+    } catch (err: any) {
+      return res.status(500).json(err.message);
     }
   },
 };

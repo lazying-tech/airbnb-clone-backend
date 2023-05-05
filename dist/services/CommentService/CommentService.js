@@ -16,13 +16,8 @@ exports.CommentService = {
     create: (createComment) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const { comment, listingId, user, parentId } = createComment;
-            let ParentId = parentId;
             if (!user) {
                 throw new Error("Login First");
-            }
-            console.log(createComment);
-            if (!parentId) {
-                ParentId = undefined;
             }
             if (!listingId || !comment || comment == "") {
                 throw new Error("Data not enough");
@@ -36,6 +31,34 @@ exports.CommentService = {
                 },
             });
             return Comment;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
+    update: (commentId, updateComment) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const { comment, listingId, user, parentId } = updateComment;
+            if (comment == "" || comment == null) {
+                throw new Error("Data not enough");
+            }
+            const userId = yield prisma.comment.findUnique({
+                where: { id: commentId },
+                select: { userId: true },
+            });
+            if ((userId === null || userId === void 0 ? void 0 : userId.userId) !== user.id) {
+                throw new Error("You do not have permission to edit this message");
+            }
+            const newComment = yield prisma.comment.update({
+                where: {
+                    id: commentId,
+                },
+                data: {
+                    message: comment,
+                },
+                select: { message: true },
+            });
+            return newComment;
         }
         catch (err) {
             throw err;
