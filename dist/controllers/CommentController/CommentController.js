@@ -44,5 +44,9 @@ exports.CommentController = {
             return res.status(500).json(err.message);
         }
     }),
+    getLikes: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const cookies = req.cookies;
+        console.log(cookies);
+    }),
 };
 //# sourceMappingURL=CommentController.js.map

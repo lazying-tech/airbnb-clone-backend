@@ -97,7 +97,7 @@ exports.CommentService = {
                             id: comment.id,
                         },
                     });
-                    return Object.assign(Object.assign({}, commentDelete), { commentDelete });
+                    return Object.assign({}, commentDelete);
                 }
                 catch (err) {
                     throw err;

@@ -32,4 +32,11 @@ export const CommentController = {
       return res.status(500).json(err.message);
     }
   },
+
+  getLikes: async (req: Request, res: Response, next: NextFunction) => {
+    const cookies = req.cookies;
+    console.log(cookies);
+
+    return res.json(cookies);
+  },
 };
