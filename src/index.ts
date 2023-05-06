@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import MainRoute from "./routes/index";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 require("dotenv").config();
 const app = express();
@@ -11,7 +12,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 const PORT: any = process.env.PORT || 8000;
 app.use("/api/v1", MainRoute);
 
