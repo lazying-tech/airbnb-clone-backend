@@ -25,7 +25,7 @@ export const CommentService = {
         },
       });
 
-      return Comment;
+      return { ...Comment, likeCount: 0, likedByMe: false };
     } catch (err) {
       throw err;
     }
@@ -107,6 +107,32 @@ export const CommentService = {
       };
       const deletedComment = await deleteCommentWitchChildren(comment);
       return deletedComment;
+    } catch (err) {
+      throw err;
+    }
+  },
+  toggleCommentLike: async (commentId: string, data: any) => {
+    try {
+      const currentUser = data.user;
+      const dataLike = {
+        commentId: commentId,
+        userId: currentUser.id,
+      };
+      const like = await prisma.like.findUnique({
+        where: { userId_commentId: dataLike },
+      });
+
+      if (!like) {
+        return await prisma.like.create({ data: dataLike }).then(() => {
+          return { addLike: true };
+        });
+      } else {
+        return await prisma.like
+          .delete({ where: { userId_commentId: dataLike } })
+          .then(() => {
+            return { addLike: false };
+          });
+      }
     } catch (err) {
       throw err;
     }

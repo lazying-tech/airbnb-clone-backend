@@ -44,9 +44,17 @@ exports.CommentController = {
             return res.status(500).json(err.message);
         }
     }),
-    getLikes: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const cookies = req.cookies;
-        console.log(cookies);
+    toggleCommentLike: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const params = req.params;
+        const { commentId } = params;
+        try {
+            return res
+                .status(200)
+                .json(yield CommentService_1.CommentService.toggleCommentLike(commentId, req.body));
+        }
+        catch (err) {
+            return res.status(500).json(err.message);
+        }
     }),
 };
 //# sourceMappingURL=CommentController.js.map

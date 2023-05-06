@@ -30,7 +30,7 @@ exports.CommentService = {
                     parentId: parentId,
                 },
             });
-            return Comment;
+            return Object.assign(Object.assign({}, Comment), { likeCount: 0, likedByMe: false });
         }
         catch (err) {
             throw err;
@@ -105,6 +105,33 @@ exports.CommentService = {
             });
             const deletedComment = yield deleteCommentWitchChildren(comment);
             return deletedComment;
+        }
+        catch (err) {
+            throw err;
+        }
+    }),
+    toggleCommentLike: (commentId, data) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const currentUser = data.user;
+            const dataLike = {
+                commentId: commentId,
+                userId: currentUser.id,
+            };
+            const like = yield prisma.like.findUnique({
+                where: { userId_commentId: dataLike },
+            });
+            if (!like) {
+                return yield prisma.like.create({ data: dataLike }).then(() => {
+                    return { addLike: true };
+                });
+            }
+            else {
+                return yield prisma.like
+                    .delete({ where: { userId_commentId: dataLike } })
+                    .then(() => {
+                    return { addLike: false };
+                });
+            }
         }
         catch (err) {
             throw err;

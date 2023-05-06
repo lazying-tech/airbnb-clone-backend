@@ -103,4 +103,6 @@ model Like {
   userId    String  @db.ObjectId
   comment   Comment @relation(fields: [commentId], references: [id])
   commentId String  @db.ObjectId
+
+  @@unique([userId, commentId], map: "user_comment_idx")
 }
