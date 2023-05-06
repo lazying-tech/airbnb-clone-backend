@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { CommentService } from "../../services/CommentService/CommentService";
 import jwt_decode from "jwt-decode";
-import jwtDecode from "jwt-decode";
+
 export const CommentController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -37,7 +37,7 @@ export const CommentController = {
   getLikes: async (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
     const jwtToken = cookies["next-auth.session-token"];
-    const deccodedToken = jwtDecode(jwtToken);
-    console.log(deccodedToken);
+    const deccodedToken = jwt_decode(jwtToken);
+    return res.json(deccodedToken);
   },
 };
