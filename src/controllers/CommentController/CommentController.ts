@@ -35,8 +35,7 @@ export const CommentController = {
 
   getLikes: async (req: Request, res: Response, next: NextFunction) => {
     const cookies = req.cookies;
-    console.log(cookies);
-
-    return res.json(cookies);
+    const token = cookies["next-auth.session-token"];
+    return res.json(`${token.value} and ${token}`);
   },
 };
